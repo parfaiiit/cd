@@ -1,0 +1,39 @@
+
+        <div style="background-image: url(/theme/moove/pix/headerimg.png);
+                
+                    background-repeat: no-repeat;
+                    background-size: cover;">
+            <div class="container frontpage-guest-header">
+           
+
+                <div class="row" id="loginbox">
+                 <div class="hidden-md-down col-md-12"  style="padding: 0px;margin-right: :130px;margin-top: 20px;margin-bottom: 0px"></div>
+                    <div class="col-md-8" id="intro">
+        
+          
+                    </div>
+                    <div class="col-md-4 op60 bolder"  style="padding: 20px;margin-right: :130px;margin-top: 50px;margin-bottom: 30px;color:#F76C39;">
+                        <h3 style="">科顿coton</h3>
+                        <h3>教育软件</h3>
+                        <p style="color:white;padding: 15px;">由国内顶尖的音视频通讯专家创立，致力于用可靠的音视频技术服务在线教育产业。公司基于新一代通信协议标准打造的云课堂，真正做到全平台互通，轻松实现国际间实时互动教学</p>
+                        <form  action="{{{output.getNewCourse }}}" method="get" role="form">
+     
+                        <input type="hidden" name="category" value="2">
+                        <input type="hidden" name="returnto" value="topcat">
+                            <div style="padding: 20px" >
+                                <button type="submit" style="background-color: F76C39" class="btn btn-danger" style = "opacity:10" href="{{{output.getNewCourse }}}"><h3 >新建课程</h3></button>
+                            </div>
+                        </form>
+
+                   
+
+                        {{#cansignup}}
+                            <a class="btn btn-register btn-danger" href="{{{ config.wwwroot }}}/login/signup.php?">{{#str}}newaccount{{/str}}</a>
+                        {{/cansignup}}
+                    </div>
+                </div> <!-- end of section.sign-up (login) -->
+            </div>
+        </div>
+        <DIV style="width: 100%*;height: 20px;background-color: #1D2B36">
+
+        </DIV>
