@@ -425,7 +425,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('li', $liattributes);
 
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
+          //  $leftcontent = $this->section_left_content($section, $course, $onsectionpage);//折叠按钮左边编号3
             $rightcontent = '';
             if (($section->section != 0) && $this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
@@ -436,7 +436,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         'class' => 'icon edit tceditsection', 'alt' => get_string('edit'))),
                         array('title' => get_string('editsection', 'format_topcoll'), 'class' => 'tceditsection'));
             }
-            $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
+          //  $rightcontent .= $this->section_right_content($section, $course, $onsectionpage); //折叠按钮右边链接
 
             if ($this->rtl) {
                 // Swap content.

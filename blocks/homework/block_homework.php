@@ -27,7 +27,7 @@ require_once("edulink_classes/homework.php");
 
 use block_homework\local\edulink as e;
 
-class block_homework extends \block_base {
+class block_homework extends \block_list {
 
     protected $blockid = 'block_homework';
     protected $userid;
@@ -35,7 +35,7 @@ class block_homework extends \block_base {
     protected $children;
 
     public function init() {
-        $this->title = " ";//get_string('pluginname', $this->blockid);
+        $this->title = get_string('pluginname', $this->blockid);
     }
 
     public function get_content() {
@@ -58,19 +58,12 @@ class block_homework extends \block_base {
         $this->content = new stdClass();
         $this->content->items = array();
         $this->content->icons = array();
-        $this->content->text = "";
-      
-        
-        $text = html_writer::start_tag('div', array('class' => 'row','style'=>'border-left:1.1px solid #F86C39 ;'));
-        $text .=$this->get_block_title("需要留意的作业");
-        $text .='<DIV style="BORDER-TOP: #DCDCDC 2px dashed; OVERFLOW: hidden; HEIGHT: 3px;width:100%;"></DIV>';
-        $BtnsText=  '<div class="card" style= "border:0; padding-left :0; ">
-    	<div  class="card-block row admininfos">';
+
         $path = $CFG->wwwroot . '/blocks/homework/';
 
         $coursespecifier = '?course=' . $COURSE->id;
 
-        $onfrontpage = $COURSE->id == get_site()->id;	
+        $onfrontpage = $COURSE->id == get_site()->id;
 
         $this->userid = $USER->id;
         $this->usertype = block_homework_moodle_utils::get_user_type($this->userid);
@@ -114,13 +107,13 @@ class block_homework extends \block_base {
         $nohomeworklabel = new e\htmlLabel('label-info', get_string('nohomeworkduewithintwoweeks', $this->blockid));
         if (empty($courses)) {
             $nocourseslabel = new e\htmlLabel('label-info', get_string('nocourses', $this->blockid));
-           $text .= $nocourseslabel->get_html();
+            $this->content->items[] = $nocourseslabel->get_html();
             $this->content->icons[] = '';
         }
 
         foreach ($users as $userid => $usersname) {
             if ($usersname != "") {
-               $text .= '<h3>' . $usersname . '</h3>';
+                $this->content->items[] = '<h3>' . $usersname . '</h3>';
                 $this->content->icons[] = '';
             }
             $somehomeworkthisuser = false;
@@ -146,75 +139,38 @@ class block_homework extends \block_base {
                 if (!empty($homeworkhtml)) {
                     $somehomework = true;
                     $somehomeworkthisuser = true;
-                   $text .= $homeworkhtml;
+                    $this->content->items[] = $homeworkhtml;
                     $this->content->icons[] = '';
-                }	
+                }
             }
             if (!$somehomeworkthisuser) {
-                $text .= $nohomeworklabel->get_html();
+                $this->content->items[] = $nohomeworklabel->get_html();
                 $this->content->icons[] = '';
             }
         }
         if (!empty($this->children)) {
-           $text .= "<hr>";
+            $this->content->items[] = "<hr>";
             $this->content->icons[] = '';
         }
 
-        $text .= '<br>';
+        $this->content->items[] = '<br>';
         $this->content->icons[] = "";
 
         if ($this->usertype == "employee") {
             $sethomework = get_string('sethomework', $this->blockid);
             $sethomework = $this->get_icon_html('homework-create-small', $sethomework) . ' ' . $sethomework;
-            $SetHWlink = new e\htmlHyperlink('', $sethomework, $path . 'set.php' . $coursespecifier);
-          // $text .= $this->get_block_button('ond_sethomework', $SetHWlink);
-           $BtnsText	.=  '
-        <div class="col-md-6 col-lg-3" style = "width:265px;margin-right:10px;"	>
-          <!-- small box -->
-        	<a' .	$SetHWlink->get_properties() . '>
-          <div class="small-box btn-info "style="min-height:105px;">
-            <div class="inner">
-              <h3>布置作业</h3>
-           
-           
-            
-            </div>
-            <div class="icon">
-              <i class="fa fa-hdd-o"></i>
-            </div>
-          </div>
-        </a>
-        </div>';
-
+            $link = new e\htmlHyperlink('', $sethomework, $path . 'set.php' . $coursespecifier);
+            $this->content->items[] = $this->get_block_button('ond_sethomework', $link);
+            $this->content->icons[] = "";
         }
 
         $viewpermission = ($this->usertype == "parent") || ($this->usertype == "employee") || ($this->usertype == "learner");
         if ($viewpermission) {
             $viewhomework = get_string('viewhomework', $this->blockid);
             $viewhomework = $this->get_icon_html('homework-view-small', $viewhomework) . ' ' . $viewhomework;
-            $ViewHWlink = new e\htmlHyperlink('', $viewhomework, $path . 'view.php' . $coursespecifier);
-         // $text .=$this->get_block_button('ond_viewhomework', $ViewHWlink);
-          $BtnsText	.=  '
-  
-          
-       <div class="col-md-6 col-lg-3" style = "width:265px;margin-right:10px;"	>
-       	<a' .	$ViewHWlink->get_properties() . '>
-          <!-- small box -->
-          <div class="small-box btn-warning"style="min-height:105px;">
-          
-            <div class="inner">
-              <h3>全部作业</h3>
-          
-              <p></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-          
-          </div>
-       	</a>
-        </div>';
-
+            $link = new e\htmlHyperlink('', $viewhomework, $path . 'view.php' . $coursespecifier);
+            $this->content->items[] = $this->get_block_button('ond_viewhomework', $link);
+            $this->content->icons[] = "";
         }
 
         if ($this->usertype == "employee") {
@@ -226,49 +182,18 @@ class block_homework extends \block_base {
             }
             $markhomework = get_string('markhomework', $this->blockid);
             $markhomework = $this->get_icon_html('homework-mark-small', $markhomework) . ' ' . $markhomework;
-            $MarkHWlink = new e\htmlHyperlink('', $markhomework . $tomarkhtml, $path . 'view.php' . $coursespecifier .
+            $link = new e\htmlHyperlink('', $markhomework . $tomarkhtml, $path . 'view.php' . $coursespecifier .
                     '&mark=1');
-        //  $text .= $this->get_block_button('ond_markhomework', $MarkHWlink);
-         $BtnsText	.=  '
-        
-       <div class="col-md-6 col-lg-3" style = "width:265px;margin-right:10px;"	>
-         	<a' .	$MarkHWlink->get_properties() . '>	
-          <!-- small box -->
-          <div class="small-box btn-success"style="min-height:105px;">
-            <div class="inner">
-              <h3 >批改作业</h3>
-        
-           
-            </div>
-            <div class="icon">
-              <i class="fa fa-graduation-cap"></i>
-            </div>
-          </div>
-         </a>			
-        </div>';
+            $this->content->items[] = $this->get_block_button('ond_markhomework', $link);
+            $this->content->icons[] = "";
         }
 
         if ($this->usertype == "employee") {
             $viewreports = get_string('viewreports', $this->blockid);
             $viewreports = $this->get_icon_html('homework-reports-small', $viewreports) . ' ' . $viewreports;
-            $viewreportslink = new e\htmlHyperlink('', $viewreports, $path . 'reports.php' . $coursespecifier);
-          //$text .= $this->get_block_button('ond_viewreports', $viewreportslink);
-       //  $BtnsText	.=  '
-     //      <div class="col-md-5 col-lg-3">
-    //      <a' .	$viewreportslink->get_properties() . '>			
-    //      <!-- small box -->
-    //      <div	 class="small-box btn-danger"style="min-height:110px;min-width: 270px;">
-    //        <div class="inner">
-    //          <h3>查看成绩</h3>
-        
-    //          <p></p>
-    //        </div>
-    //        <div class="icon">
-     //         <i class="fa fa-plug"></i>
-     //       </div>
-     //     </div>
-    //     	</a>		
-    //    </div>';
+            $link = new e\htmlHyperlink('', $viewreports, $path . 'reports.php' . $coursespecifier);
+            $this->content->items[] = $this->get_block_button('ond_viewreports', $link);
+            $this->content->icons[] = "";
         }
 
         if (!empty($this->content->items)) {
@@ -281,22 +206,13 @@ class block_homework extends \block_base {
             } else {
                 $version = '';
             }
-            
-            
-//             $this->content->footer = '<div class="clearer"></div>' .
-//                     '<div style="border-top:1px solid #ccc; padding-top:0.2em; display:block !important; text-align:center; ' .
-//                     'width:auto; font-size: 85%;">' . $version .
-//                     '<a target="_blank" href="' . get_string('poweredbyurl', $this->blockid) .
-//                     '" style="display:inline !important;">' . get_string('poweredby', $this->blockid) . '</a></div>';
+            $this->content->footer = '<div class="clearer"></div>' .
+                    '<div style="border-top:1px solid #ccc; padding-top:0.2em; display:block !important; text-align:center; ' .
+                    'width:auto; font-size: 85%;">' . $version .
+                    '<a target="_blank" href="' . get_string('poweredbyurl', $this->blockid) .
+                    '" style="display:inline !important;">' . get_string('poweredby', $this->blockid) . '</a></div>';
         }
-        
-        $text .= html_writer::end_tag('div');//rom
-        $BtnsText	.=  '
-				    </div>
-				</div>
-        ';//enddiv
-      $BtnsText  .=$text;
-        $this->content->text =$BtnsText;
+
         return $this->content;
     }
 
@@ -308,17 +224,6 @@ class block_homework extends \block_base {
         return $img->get_html();
     }
 
-    protected function get_block_title($title) {
-    $text ="";
-    $text .='<div style=" margin-top: 2rem;" ></div>';
-    $text .='<div style="width:37px;margin-left:-37px;height: 1.1px;background-color: #F86C39; margin-top: 2rem;">
-            	</div>';
-    
-    $text .= html_writer::start_tag('div', array('class' => 'col-md-12   ', 'style'=>'font-size:x-large;   '));
-    $text .= '<span style=" margin-left: -18px;  border-left: 5.1px solid #F86C39; padding-right: 2rem;"> </span>';//画竖杠
-    $text .= html_writer::span($title, 'course-title bolder not-enumerated');//block  名称
-    return $text;
-    }
     protected function get_block_button($class, $link) {
         $link->set_class('');
         $div = new e\htmlDiv(null, $class . ' ond_homework_block_link', $link->get_html());
@@ -326,7 +231,7 @@ class block_homework extends \block_base {
     }
 
     public function applicable_formats() {
-        return array('my' => true);
+        return array('my' => true, 'course' => true);
     }
 
     public function instance_allow_multiple() {

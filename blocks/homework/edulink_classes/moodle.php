@@ -65,20 +65,6 @@ class block_homework_moodle_utils {
                 JOIN {user} u ON (u.id = eh.userid)
                 WHERE cm.course = ? AND a.duedate > ? AND cm.instance <> 0 AND m.visible = 1 AND m.name = 'assign'
                 ORDER BY a.duedate DESC";
-
-//         $sql = "SELECT cm.id, cm.instance, cm.availability, cm.completion,  u.firstname, u.lastname,
-//                 a.name, a.intro, a.allowsubmissionsfromdate, a.duedate, a.grade, a.nosubmissions, gi.scaleid,
-//                 c.id AS courseid, c.shortname AS courseshortname
-//                 FROM {course_modules} cm
-//                 JOIN {course} c ON (c.id = cm.course)
-//                 JOIN {modules} m ON (m.id = cm.module)
-//                 JOIN {assign} a ON (a.id = cm.instance)
-//                 JOIN {grade_items} gi ON (gi.courseid = cm.course AND gi.itemtype = 'mod' AND gi.itemmodule = m.name AND
-//                     gi.iteminstance = a.id)
-             
-               
-//                 WHERE cm.course = ? AND a.duedate > ? AND cm.instance <> 0 AND m.visible = 1 AND m.name = 'assign'
-//                 ORDER BY a.duedate DESC";
         $agelimit = time() - ($maximumdaysage * 24 * 60 * 60);
         $assignments = $DB->get_records_sql($sql, array($courseid, $agelimit));
         if ($assignments) {
@@ -762,7 +748,7 @@ WHERE u.id IN ({$useridlist}) ORDER BY u.lastname, u.firstname";
                 $grade = $assign->get_user_grade($record->userid, false);
                 $grade = $assign->display_grade($grade->grade, false, $record->userid);
             }
-            $submitted = ($record->status == '已经提交');
+            $submitted = ($record->status == 'submitted');
             $submissionfiles = '';
             $gradeeditor = '';
             if ($getsubmissions) {

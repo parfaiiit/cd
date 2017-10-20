@@ -287,7 +287,7 @@ class block_homework_mark_page extends e\block_homework_form_page_base {
                 }
             }
             $behaviouractivityoptions = array();
-            $batypes = HomeworkAccess::behaviour_activity_types(); 
+            $batypes = HomeworkAccess::behaviour_activity_types();
             $defaultactivitytype = '';
             foreach ($batypes as $type) {
                 if ($defaultactivitytype == '') {

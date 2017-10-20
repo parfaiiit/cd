@@ -46,7 +46,7 @@ class block_course_list extends block_list {
         $this->content->icons = array();
         $this->content->footer = '';
 
-        $icon  = '<img src="' . $OUTPUT->pix_url('i/course') . '" class="icon" alt="" />';
+        $icon  = '<img src="' . $OUTPUT->pix_url('i/course') . '" class="icon" alt="cccs" />';
 
         $adminseesall = true;
         if (isset($CFG->block_course_list_adminview)) {

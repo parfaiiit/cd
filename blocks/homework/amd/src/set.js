@@ -34,7 +34,7 @@ define(['jquery',
             });
             
             if($("#selectcourse").length > 0) {
-                $('#btnsubmit').html('下一步');
+                $('#btnsubmit').html('Next');
                 $('#selectcourse').attr("style","width:30%").select2();
                 return;
             }
