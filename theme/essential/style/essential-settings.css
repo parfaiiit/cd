@@ -938,9 +938,16 @@ body#page-grade-grading-pick #region-main form #fgroup_id_buttonar label {
 }
 #page-header #headerlogo {
   color: [[setting:themeiconcolor]];
+  
 }
+
 #page-header .btn-icon .icon-bar {
   background-color: [[setting:themecolor]];
+}
+#loginBG
+{
+	  background-color: [[setting:themecolor]];
+	
 }
 #page-header div.titlearea {
   border-left: 1px dotted [[setting:themecolor]];
@@ -1844,6 +1851,9 @@ h2.pagetitle {
   color: [[setting:footertextcolor]];
   border-top: 2px solid [[setting:themecolor]];
   border-bottom: 3px solid [[setting:themecolor]];
+  position: relative;
+    top: 294px;
+    left: 0px;
 }
 #page-footer a,
 #page-footer a > .fa {

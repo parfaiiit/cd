@@ -344,17 +344,18 @@ class core_renderer extends \core_renderer {
     public function course_content_header($onlyifnotcalledbefore = false) {
         $content = parent::course_content_header($onlyifnotcalledbefore);
 
-        if ($this->page->pagelayout == 'mydashboard') {
-            if (\theme_essential\toolbox::course_content_search()) {
-                $content .= '<div class="courseitemsearch">';
-                $content .= '<div><p>'.get_string('findcoursecontent', 'theme_essential').'</p></div>';
-                $content .= '<div id="courseitemsearchresults">';
-                $content .= '<input type="text" name="courseitemsearch" id="courseitemsearch" disabled="disabled">';
-                $content .= '</div></div>';
-            }
-        }
+//         if ($this->page->pagelayout == 'mydashboard') {
+//             if (\theme_essential\toolbox::course_content_search()) {
+//                 $content .= '<div class="courseitemsearch">';
+//                 $content .= '<div><p>'.get_string('findcoursecontent', 'theme_essential').'</p></div>';
+//                 $content .= '<div id="courseitemsearchresults">';
+//                 $content .= '<input type="text" name="courseitemsearch" id="courseitemsearch" disabled="disabled">';
+//                 $content .= '</div></div>';
+//             }
+//         }
 
-        return $content;
+//         return $content;
+			return  null;
     }
 
     /**
@@ -2220,4 +2221,25 @@ class core_renderer extends \core_renderer {
             return $favicon;
         }
     }
+
+    public function render_login(\core_auth\output\login $form) {
+    	global $SITE;
+    
+    	$context = $form->export_for_template($this);
+    
+    	// Override because rendering is not supported in template yet.
+    	$context->cookieshelpiconformatted = $this->help_icon('cookiesenabled');
+    	$context->errorformatted = $this->error_text($context->error);
+    	$url = $this->get_logo_url();
+    	if ($url) {
+    		$url = $url->out(false);
+    	}
+    	$context->logourl = $url;
+    	$context->sitename = format_string($SITE->fullname, true,
+    			['context' => context_course::instance(SITEID), "escape" => false]);
+    
+    	return $this->render_from_template('core/login', $context);
+    }
+    
 }
+

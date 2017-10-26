@@ -160,7 +160,7 @@ $showeditgroupsettingsform_disabled = $singlegroup ? '' : $disabled;
 $deletegroup_disabled = count($groupids) > 0 ? '' : $disabled;
 
 echo $OUTPUT->heading(format_string($course->shortname, true, array('context' => $context)) .' '.$strgroups, 3);
-echo '<form id="groupeditform" action="index.php" method="post">'."\n";
+echo '<form id="groupeditform" class="row-fluid" action="index.php" method="post">'."\n";
 echo '<div>'."\n";
 echo '<input type="hidden" name="id" value="' . $courseid . '" />'."\n";
 

@@ -72,7 +72,7 @@ class block_homework_view_reports_page extends e\block_homework_form_page_base {
 
         $stafftab = '<div class="ond_row"><div class="ond_col"><h2>' . $this->get_str('assignmentssetpermonth') . '</h2>'
                 . '<canvas id="mychart1" width="' . $this->chartwidth . '" height="' . $this->chartheight . '"></canvas></div>'
-                . '<div class="ond_col"><h2>' . $this->get_str('assignmentsgradedpermonth') . '</h2>'
+                . '<div class="ond_col" style ="display: none;" ><h2>' . $this->get_str('assignmentsgradedpermonth') . '</h2>'
                 . '<canvas id="mychart2" width="' . $this->chartwidth . '" height="' . $this->chartheight . '"></canvas></div>'
                 . '<div class="ond_col"><h2>' . $this->get_str('assignmentssetpergroup') . '</h2>'
                 . '<canvas id="mychart3" width="' . $this->chartwidth . '" height="' . $this->chartheight . '"></canvas></div>'
@@ -146,14 +146,14 @@ class block_homework_view_reports_page extends e\block_homework_form_page_base {
                 . '<div class="clearfix"></div><h2>' . $this->get_str('staffstatistics') . '</h2>'
                 . '<div id="staffstatisticstableholder"><div id="staffstatistics_loading" class="ond_ajax_loading_big">' .
                     $this->get_str('loadingdata') . '</div><div id="staffstatistics_loaded"></div></div>';
-        $form[$this->get_str('subjectsandstaff')] = array(
-            'from_school' => array('type' => 'date', 'prompt' => $this->get_str('from'),
-                'default' => ($year - 1) . '-09-01', 'required' => true, 'include_tomorrow_button' => false,
-                'include_next_week_button' => false),
-            'to_school' => array('type' => 'date', 'prompt' => $this->get_str('to'), 'default' => date($year . '-08-31'),
-                'required' => true, 'include_tomorrow_button' => false, 'include_next_week_button' => false),
-            'tab4' => array('type' => 'static', 'content' => $schooltab)
-        );
+//         $form[$this->get_str('subjectsandstaff')] = array(
+//             'from_school' => array('type' => 'date', 'prompt' => $this->get_str('from'),
+//                 'default' => ($year - 1) . '-09-01', 'required' => true, 'include_tomorrow_button' => false,
+//                 'include_next_week_button' => false),
+//             'to_school' => array('type' => 'date', 'prompt' => $this->get_str('to'), 'default' => date($year . '-08-31'),
+//                 'required' => true, 'include_tomorrow_button' => false, 'include_next_week_button' => false),
+//             'tab4' => array('type' => 'static', 'content' => $schooltab)
+//         );
 
         /* extra tab specific to Homework block extended by proprietary availability plugin */
         $extrareports = $CFG->dirroot . '/availability/condition/user/homework/reports.php';
