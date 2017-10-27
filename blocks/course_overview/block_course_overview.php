@@ -22,6 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once($CFG->dirroot.'/blocks/course_overview/locallib.php');
+require_once($CFG->dirroot.'/blocks/homework/edulink_classes/homework.php');
 
 /**
  * Course overview block
@@ -34,12 +35,25 @@ class block_course_overview extends block_base {
      * If this is passed as mynumber then showallcourses, irrespective of limit by user.
      */
     const SHOW_ALL_COURSES = -2;
-
+    protected $userid;
+    protected $usertype;
+    protected $children;
     /**
      * Block initialization
      */
     public function init() {
-        $this->title   = get_string('pluginname', 'block_course_overview');
+    	global $USER;
+    	$this->userid = $USER->id;
+    	$this->usertype = block_homework_moodle_utils::get_user_type($this->userid);
+    	if ($this->usertype == "employee") {
+    		$this->title="我的教学";
+    	}elseif ($this->usertype == "learner")
+    	{
+    		$this->title="我的课程";
+    	}
+    	
+      //  $this->title   = get_string('pluginname', 'block_course_overview');
+    	
     }
 
     /**
@@ -49,6 +63,7 @@ class block_course_overview extends block_base {
      */
     public function get_content() {
         global $USER, $CFG, $DB;
+        
         require_once($CFG->dirroot.'/user/profile/lib.php');
 
         if($this->content !== NULL) {
