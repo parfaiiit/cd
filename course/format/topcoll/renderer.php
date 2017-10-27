@@ -179,21 +179,21 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $topictext = get_string('setlayoutstructureday', 'format_topcoll');
                 }
                 $title = get_string('viewonly', 'format_topcoll', array('sectionname' => $topictext.' '.$section->section));
-                switch ($this->tcsettings['layoutelement']) { // Toggle section x.
-                    case 1:
-                    case 3:
-                    case 5:
-                    case 8:
-                        $o .= html_writer::link($url,
-                                        $topictext . html_writer::empty_tag('br') .
-                            $section->section, array('title' => $title, 'class' => 'cps_centre'));
-                        break;
-                    default:
-                        $o .= html_writer::link($url,
-                            $this->output->pix_icon('one_section', $title, 'format_topcoll'),
-                            array('title' => $title, 'class' => 'cps_centre'));
-                        break;
-                }
+//                 switch ($this->tcsettings['layoutelement']) { // Toggle section x.
+//                     case 1:
+//                     case 3:
+//                     case 5:
+//                     case 8:
+// //                         $o .= html_writer::link($url,
+// //                                         $topictext . html_writer::empty_tag('br') .
+// //                             $section->section, array('title' => $title, 'class' => 'cps_centre'));
+// //                         break;
+//                     default:
+//                         $o .= html_writer::link($url,
+//                             $this->output->pix_icon('one_section', $title, 'format_topcoll'),
+//                             array('title' => $title, 'class' => 'cps_centre'));
+//                         break;
+//                 }
             }
         }
 
@@ -220,14 +220,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (empty($this->tcsettings)) {
                 $this->tcsettings = $this->courseformat->get_settings();
             }
-            switch ($this->tcsettings['layoutelement']) {
-                case 1:
-                case 2:
-                case 5:
-                case 6:
-                    $o .= html_writer::tag('span', $section->section, array('class' => 'cps_centre'));
-                    break;
-            }
+//             switch ($this->tcsettings['layoutelement']) {
+//                 case 1:
+//                 case 2:
+//                 case 5:
+//                 case 6:
+//                     $o .= html_writer::tag('span', $section->section, array('class' => 'cps_centre'));
+//                     break;
+//             }
         }
         return $o;
     }
@@ -425,18 +425,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('li', $liattributes);
 
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-         //   $leftcontent = $this->section_left_content($section, $course, $onsectionpage);//折叠按钮左边编号3
+            $leftcontent = $this->section_left_content($section, $course, $onsectionpage);//折叠按钮左边编号3
             $rightcontent = '';
             if (($section->section != 0) && $this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
 
-                $rightcontent .= html_writer::link($url,
+              $rightcontent .= html_writer::link($url,
                     html_writer::empty_tag('img',
                         array('src' => $this->output->pix_url('t/edit'),
                         'class' => 'icon edit tceditsection', 'alt' => get_string('edit'))),
                         array('title' => get_string('editsection', 'format_topcoll'), 'class' => 'tceditsection'));
             }
-       //     $rightcontent .= $this->section_right_content($section, $course, $onsectionpage); //折叠按钮右边链接
+            $rightcontent .= $this->section_right_content($section, $course, $onsectionpage); //折叠按钮右边链接
 
             if ($this->rtl) {
                 // Swap content.

@@ -43,6 +43,7 @@ $urlparams = array('id' => $id,
 
 $url = new moodle_url('/mod/assign/view.php', $urlparams);
 $PAGE->set_url($url);
+$PAGE->set_pagelayout('frametop');
 
 // Update module completion status.
 $assign->set_module_viewed();

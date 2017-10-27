@@ -1217,4 +1217,8 @@
 .path-mod-assign #page-content {
     position: inherit;
 }
+
+.generaltable email{
+	display: none;
+}
 /** End of base fixes **/

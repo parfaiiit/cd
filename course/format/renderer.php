@@ -205,7 +205,7 @@ abstract class format_section_renderer_base extends plugin_renderer_base {
 
         // Create a span that contains the section title to be used to create the keyboard section move menu.
         $o .= html_writer::tag('span', get_section_name($course, $section), array('class' => 'hidden sectionname'));
-
+//课程中向左，向右的标签
        // $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
       //  $o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
 

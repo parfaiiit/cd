@@ -74,8 +74,8 @@ abstract class block_homework_moodle_page_base {
         }
         $PAGE->set_heading($heading);
 
-       // $PAGE->set_pagelayout('base');
-        $PAGE->set_pagelayout('standard');
+        $PAGE->set_pagelayout('frametop');
+        //$PAGE->set_pagelayout('standard');
         $PAGE->add_body_class('page_edulink_homework');
 
         $stringmanager = get_string_manager();

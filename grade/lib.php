@@ -2981,7 +2981,6 @@ abstract class grade_helper {
             	continue;
             }
             // Remove ones we can't see
-            
             if (!has_capability('gradereport/'.$plugin.':view', $context)) {
                 continue;
             }
