@@ -101,20 +101,25 @@ $THEME->layouts = array(
         'defaultregion' => 'side-pre',
     ),
     // Main course page.
-    'course' => array(
-        'file' => 'columns3.php',
-        'regions' => array_merge($standardregions, array('side-post')),
-        'defaultregion' => 'side-post',
-    ),
+//     'course' => array(
+//         'file' => 'columns2.php',
+//         'regions' =>array_merge($standardregions, array('side-post')),
+//         'defaultregion' => 'side-post',
+//     ),
+		'course' => array(
+				'file' => 'columns4.php',
+				'regions' => array_merge($standardregions, array('side-post')),
+				'defaultregion' => 'side-post',
+		),
     'coursecategory' => array(
         'file' => 'columns2.php',
         'regions' => $standardregions,
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     // Part of course, typical for modules - default page layout if $cm specified in require_login().
     'incourse' => array(
         'file' => 'columns2.php',
-        'regions' => $standardregions,
+        'regions' =>  array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
     // Server administration scripts.

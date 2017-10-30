@@ -192,7 +192,8 @@ if ($course->id == SITEID) {
 
 // Get the hidden field list.
 if (has_capability('moodle/course:viewhiddenuserfields', $context)) {
-    $hiddenfields = array();  // Teachers and admins are allowed to see everything.
+   // $hiddenfields = array();  // Teachers and admins are allowed to see everything.
+    $hiddenfields = array_flip(explode(',', $CFG->hiddenuserfields));
 } else {
     $hiddenfields = array_flip(explode(',', $CFG->hiddenuserfields));
 }
